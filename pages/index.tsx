@@ -6,6 +6,7 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import Button from "../components/Button";
 import Loading from "../components/Loading";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Page: NextPageWithLayout = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -37,28 +38,65 @@ const Page: NextPageWithLayout = () => {
     }
   };
   return (
-    <div className="container h-full max-h-full pt-20 mx-auto max-w-7xl">
-      {result == "" && !loading && (
-        <div className="flex flex-col items-center justify-center space-y-5">
-          <h1 className="text-5xl font-bold text-center capitalize">
-            Let me Explain this
-          </h1>
-          <p className="text-xl text-center">
-            Generate Short, Concise and Easy-to-Understand Explanations of Any
-            Concept in Seconds!
-          </p>
-          <Input
-            onChange={handlePromptInput}
-            onSubmit={handleSubmit}
-            inputRef={inputRef}
-          />
-        </div>
-      )}
+    <motion.div className="container relative h-full max-h-full pt-20 mx-auto max-w-7xl">
+      <AnimatePresence>
+        {result == "" && !loading && (
+          <motion.div
+            className="flex flex-col items-center justify-center space-y-5"
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 0.5,
+                delay: 0.2,
+              },
+            }}
+            initial={{
+              opacity: 0,
+              y: -80,
+            }}
+            exit={{
+              opacity: 0,
+              y: -80,
+              transition: {
+                duration: 0.5,
+                delay: 0.2,
+              },
+            }}
+          >
+            <motion.h1 className="text-5xl font-bold text-center capitalize">
+              Let me Explain this
+            </motion.h1>
+            <motion.p className="text-xl text-center">
+              Generate Short, Concise and Easy-to-Understand Explanations of Any
+              Concept in Seconds!
+            </motion.p>
+            <Input
+              onChange={handlePromptInput}
+              onSubmit={handleSubmit}
+              inputRef={inputRef}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {(result != "" || loading) && (
-        <div
+        <motion.div
           className={`container relative h-full max-w-4xl px-4 pt-4 mx-auto font-medium rounded-sm  pb-14 md:h-4/5 bg-primary text-text ${
             loading && "animate-pulse delay-2s"
           }`}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: {
+              duration: 0.5,
+              delay: 0.7,
+            },
+          }}
+          initial={{
+            opacity: 0,
+            y: 100,
+          }}
         >
           {loading && (
             <div className="flex items-center justify-center w-full h-full">
@@ -78,9 +116,9 @@ const Page: NextPageWithLayout = () => {
               />
             </div>
           )}
-        </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
