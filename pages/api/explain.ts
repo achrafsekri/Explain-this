@@ -18,6 +18,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://explain-this.vercel.app"
+  );
   const incommingPrompt = req.query as Partial<IncommingPrompt>;
   const prompt = generatePrompt(incommingPrompt);
   try {
