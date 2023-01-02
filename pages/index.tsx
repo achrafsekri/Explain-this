@@ -28,7 +28,7 @@ const Page: NextPageWithLayout = () => {
       setLoading(false);
     } else {
       axios
-        .get(`http://localhost:3000/api/explain?prompt=${prompt}`)
+        .get(`https://explain-this.vercel.app/api/explain?prompt=${prompt}`)
         .then((res) => {
           console.log(res.data.result);
           setResult(res.data.result);
