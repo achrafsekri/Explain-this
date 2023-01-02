@@ -1,28 +1,30 @@
-import React,{useRef} from "react";
+import React, { useRef } from "react";
 import { VscDebugStart } from "react-icons/vsc";
 
 type InputTypes = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (e: React.ChangeEvent) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement> | KeyboardEvent) => void;
   inputRef: React.RefObject<HTMLInputElement>;
 };
 
-const Input = ({ onChange, onSubmit,inputRef }: InputTypes) => {
-
-  
+const Input = ({ onChange, onSubmit, inputRef }: InputTypes) => {
   // listen for enter key press
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
         onSubmit(e);
       }
+      
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onSubmit]);
-  
+
   return (
-    <form onSubmit={onSubmit} className="relative flex w-full px-2 md:w-2/3 h-14">
+    <form
+      onSubmit={(e) => onSubmit(e)}
+      className="relative flex w-full px-2 md:w-2/3 h-14"
+    >
       <span className="flex items-center justify-center h-full text-sm font-bold bg-black rounded-l-sm md:text-base w-28 md:w-40 text-primary">
         EXPLAIN
       </span>

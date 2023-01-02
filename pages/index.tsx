@@ -9,6 +9,8 @@ import Loading from "../components/Loading";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Page: NextPageWithLayout = () => {
+  type inputEvent = any;
+
   const inputRef = useRef<HTMLInputElement>(null);
   const [prompt, setPrompt] = useState<string>("");
   const [result, setResult] = useState<string>("");
@@ -17,7 +19,7 @@ const Page: NextPageWithLayout = () => {
     setPrompt(e.target.value);
   };
 
-  const handleSubmit = (e: React.ChangeEvent) => {
+  const handleSubmit = (e: inputEvent) => {
     e.preventDefault();
     setLoading(true);
     if (prompt == "") {
@@ -82,7 +84,7 @@ const Page: NextPageWithLayout = () => {
 
       {(result != "" || loading) && (
         <motion.div
-          className={`container relative h-full max-w-4xl px-4 pt-4 mx-auto font-medium rounded-sm  pb-14 md:h-4/5 bg-primary text-text ${
+          className={`container -mt-10 md:-mt-0 relative h-full max-w-4xl px-4 pt-4 mx-auto font-medium rounded-sm  pb-14 md:h-4/5 bg-primary text-text ${
             loading && "animate-pulse delay-2s"
           }`}
           animate={{

@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { Configuration, OpenAIApi } from "openai";
-import { Partial } from "utility-types";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,7 +10,7 @@ interface IncommingPrompt {
   prompt: string;
 }
 
-const generatePrompt = (prompt: IncommingPrompt) => {
+const generatePrompt = (prompt: Partial<IncommingPrompt>) => {
   return `explain ${prompt.prompt}`;
 };
 
